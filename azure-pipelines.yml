@@ -4,7 +4,12 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+  - main
+  - releases/*
+  
+  pr:
+  - main
+  - releases/*
 
 strategy:
   matrix:
@@ -30,7 +35,6 @@ steps:
     publishJUnitResults: true
     testResultsFiles: "**/TEST-*.xml"
     goals: "package"
-  
    
 - script: |
     echo Add other tasks to build, test, and deploy your project.
