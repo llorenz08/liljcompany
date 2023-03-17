@@ -4,9 +4,9 @@
 # https://aka.ms/yaml
 
 trigger:
- - main
+- main
 
- strategy:
+strategy:
   matrix:
     jdk10_linux:
       imageName: "ubuntu-latest"
@@ -19,19 +19,14 @@ trigger:
 pool:
   vmImage: $(imageName)
 
- steps:
- - task: Maven@4
-   inputs:
-     mavenPomFile: 'pom.xml'
-     mavenOptions: '-Xmx3072m'
-     javaHomeOption: 'JDKVersion'
-     jdkVersionOption: '1.11'
-     jdkArchitectureOption: 'x64'
-     publishJUnitResults: false
-     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-     goals: 'package'
-   
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+steps:
+- task: Maven@4
+  inputs:
+    mavenPomFile: "pom.xml"
+    mavenOptions: "-Xmx3072m"
+    javaHomeOption: "JDKVersion"
+    jdkVersionOption: $(jdkVersion)
+    jdkArchitectureOption: "x64"
+    publishJUnitResults: true
+    testResultsFiles: "**/TEST-*.xml"
+    goals: "package"
